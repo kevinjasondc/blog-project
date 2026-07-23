@@ -19,26 +19,66 @@
 
 <main>
 
-<h2>Add Blog</h2>
+    <h2>Add Blog</h2>
 
-<form action="/add-blog" method="POST">
+    <form id="blogForm">
 
-<label>Title</label><br>
-<input type="text" id="title" name="title"><br><br>
+        <label>Title</label><br>
+        <input type="text" id="title"><br><br>
 
-<label>Content</label><br>
-<textarea id="content" name="content" rows="5" cols="40"></textarea><br><br>
+        <label>Content</label><br>
+        <textarea id="content" rows="5" cols="40"></textarea><br><br>
 
-<button type="submit">Add Blog</button>
+        <button type="submit">Add Blog</button>
 
-</form>
+    </form>
+
+    <p id="message"></p>
 
 </main>
 
 <footer>
-<hr>
-<p>© 2026 My Blog Website</p>
+    <hr>
+    <p>© 2026 My Blog Website</p>
 </footer>
+
+<script>
+
+document.getElementById("blogForm").addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    const title = document.getElementById("title").value;
+    const content = document.getElementById("content").value;
+
+    fetch('/add-blog', {
+
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+            title: title,
+            content: content
+        })
+
+    })
+
+    .then(response => response.text())
+
+    .then(data => {
+
+        document.getElementById("message").innerHTML = data;
+
+        document.getElementById("blogForm").reset();
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>
