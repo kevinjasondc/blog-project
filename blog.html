@@ -41,17 +41,28 @@
     <hr>
     <p>© 2026 My Blog Website</p>
 </footer>
-
 <script>
 
 document.getElementById("blogForm").addEventListener("submit", function(event){
 
     event.preventDefault();
 
-    const title = document.getElementById("title").value;
-    const content = document.getElementById("content").value;
+    const title = document.getElementById("title").value.trim();
+    const content = document.getElementById("content").value.trim();
 
-    fetch('/add-blog', {
+
+    // Check for empty fields
+    if (title === "" || content === "") {
+
+        document.getElementById("message").innerHTML =
+        "Please fill in both title and content.";
+
+        return;
+
+    }
+
+
+    fetch('http://localhost:3000/add-blog', {
 
         method: 'POST',
 
@@ -73,6 +84,15 @@ document.getElementById("blogForm").addEventListener("submit", function(event){
         document.getElementById("message").innerHTML = data;
 
         document.getElementById("blogForm").reset();
+
+    })
+
+    .catch(error => {
+
+        document.getElementById("message").innerHTML =
+        "Error connecting to server.";
+
+        console.log(error);
 
     });
 
