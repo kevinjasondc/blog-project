@@ -21,15 +21,17 @@
 
 <h2>Add Blog</h2>
 
-<form>
+<form id="blogForm">
 
 <label>Title</label><br>
-<input type="text"><br><br>
+<input type="text" id="title"><br><br>
 
 <label>Content</label><br>
-<textarea rows="5" cols="40"></textarea><br><br>
+<textarea id="content" rows="5" cols="40"></textarea><br><br>
 
 <button type="submit">Add Blog</button>
+
+<p id="error" style="color:red;"></p>
 
 </form>
 
@@ -39,6 +41,25 @@
 <hr>
 <p>© 2026 My Blog Website</p>
 </footer>
+
+<!--  JavaScript added here -->
+<script>
+document.getElementById("blogForm").addEventListener("submit", function(e) {
+
+    let title = document.getElementById("title").value;
+    let content = document.getElementById("content").value;
+    let error = document.getElementById("error");
+
+    if (title === "" || content === "") {
+        e.preventDefault();
+        error.textContent = "All fields are required!";
+    } else {
+        error.textContent = "";
+        alert("Blog submitted successfully!");
+    }
+
+});
+</script>
 
 </body>
 </html>
