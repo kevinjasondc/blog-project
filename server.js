@@ -39,12 +39,35 @@ app.put('/edit-blog/:id', (req, res) => {
     const { title, content } = req.body;
 
     if (blogs[id]) {
+
         blogs[id].title = title;
         blogs[id].content = content;
 
         res.send("Blog updated successfully!");
+
     } else {
+
         res.status(404).send("Blog not found");
+
+    }
+
+});
+
+// Delete a blog
+app.delete('/delete-blog/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    if (blogs[id]) {
+
+        blogs.splice(id, 1);
+
+        res.send("Blog deleted successfully!");
+
+    } else {
+
+        res.status(404).send("Blog not found");
+
     }
 
 });
