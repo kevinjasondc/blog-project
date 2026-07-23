@@ -18,8 +18,11 @@
 </header>
 
 <main>
-    <h2>Welcome to My Blog</h2>
-    <p>This is the Home Page.</p>
+
+    <h2>All Blogs</h2>
+
+    <div id="blogList"></div>
+
 </main>
 
 <footer>
@@ -27,5 +30,25 @@
     <p>© 2026 My Blog Website</p>
 </footer>
 
-</body>
+<script>
+fetch('/blogs')
+.then(response => response.json())
+.then(data => {
+
+    let output = "";
+
+    data.forEach(blog => {
+        output += `
+            <h3>${blog.title}</h3>
+            <p>${blog.content}</p>
+            <hr>
+        `;
+    });
+
+    document.getElementById("blogList").innerHTML = output;
+
+});
+</script>
+
+</body>j
 </html>
