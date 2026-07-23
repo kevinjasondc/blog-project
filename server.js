@@ -13,12 +13,12 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
 
-// GET API - View all blogs
+// View all blogs
 app.get('/blogs', (req, res) => {
     res.json(blogs);
 });
 
-// POST API - Add a blog
+// Add a blog
 app.post('/add-blog', (req, res) => {
 
     const { title, content } = req.body;
@@ -32,7 +32,23 @@ app.post('/add-blog', (req, res) => {
 
 });
 
-// Start server
+// Edit a blog
+app.put('/edit-blog/:id', (req, res) => {
+
+    const id = req.params.id;
+    const { title, content } = req.body;
+
+    if (blogs[id]) {
+        blogs[id].title = title;
+        blogs[id].content = content;
+
+        res.send("Blog updated successfully!");
+    } else {
+        res.status(404).send("Blog not found");
+    }
+
+});
+
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });
